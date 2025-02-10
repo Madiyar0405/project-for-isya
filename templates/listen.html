@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прослушать сообщение</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap');
+
+        :root {
+            --primary-color: #E8B4BC;
+            --secondary-color: #4A6670;
+            --background-color: #FDF8F5;
+            --text-color: #2C3E50;
+            --accent-color: #94B49F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f3d5d8' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .logo-container {
+            text-align: center;
+            padding: 1rem;  /* Уменьшил padding */
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            /* Добавляем фиксированную высоту контейнера */
+            height: 160px; /* Фиксированная высота для баннера */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            max-width: 400px;
+            height: 400px;
+            object-fit: contain;
+        }
+
+        /* Исправляем мобильную версию */
+        @media (max-width: 600px) {
+            .logo-container {
+                height: 120px; /* Меньшая высота для мобильных */
+            }
+            
+            .logo {
+                max-width: 250px;
+                height: 150px;
+            }
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1::after {
+            content: '❀';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .player {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(232, 180, 188, 0.1), rgba(148, 180, 159, 0.1));
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .player::before,
+        .player::after {
+            content: '✿';
+            position: absolute;
+            color: var(--primary-color);
+            opacity: 0.3;
+            font-size: 1.5rem;
+        }
+
+        .player::before {
+            left: 20px;
+            top: 20px;
+        }
+
+        .player::after {
+            right: 20px;
+            bottom: 20px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin: 1rem 0;
+        }
+
+        /* Стилизация аудио плеера */
+        audio::-webkit-media-controls-panel {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+
+        audio::-webkit-media-controls-play-button {
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+        .logo-container {
+            height: 120px; /* Меньшая высота для мобильных */
+        }
+        
+        .logo {
+            max-width: 250px;
+            height: 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .logo {
+                max-width: 150px;
+                height: 60px;
+            }
+
+            .player {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='img/erasebg-transformed.png') }}" alt="Логотип цветочного магазина" class="logo">
+    </div>
+    <div class="container">
+        <h1>Прослушать сообщение</h1>
+        <div class="player">
+            <audio id="audioPlayer" controls>
+                <source src="{{ url_for('get_audio', message_id=message_id) }}" type="audio/wav">
+                Ваш браузер не поддерживает аудио элемент.
+            </audio>
+        </div>
+    </div>
+</body>
+</html>
